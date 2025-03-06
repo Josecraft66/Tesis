@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script defer src="main.js"></script> 
+    <title>Document</title>
+    <style>
+      body {
+        background-color: black;
+      }
+      .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+      .poster-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+      }
+      .poster-box img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+      .section-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <div class="section-container">
+      <section>
+        <div id="slider">
+          <div class="slider-wrap">
+            <div id="intro-slider">
+              <div class="intro-slide" data-class="1" data-position="1">
+                <div class="slide-overlay"></div>
+                <div class="poster-box" style="background:url(https://yudiz.com/codepen/stack-slider/poster-1.jpg) center center / cover no-repeat;">
+                </div>
+              </div>
+              <div class="intro-slide" data-class="2" data-position="2">
+                <div class="slide-overlay"></div>
+                <div class="poster-box" style="background:url(https://yudiz.com/codepen/stack-slider/poster-2.jpg) center center / cover no-repeat;">
+                </div>
+              </div>
+              <div class="intro-slide" data-class="3" data-position="3">
+                <div class="slide-overlay"></div>
+                <div class="poster-box" style="background:url(https://yudiz.com/codepen/stack-slider/poster-3.jpg) center center / cover no-repeat;">
+                </div>
+              </div>
+              <div class="intro-slide" data-class="4" data-position="4">
+                <div class="slide-overlay"></div>
+                <div class="poster-box" style="background:url(https://yudiz.com/codepen/stack-slider/poster-4.jpg) center center / cover no-repeat;">
+                </div>
+              </div>
+              <div class="intro-slide" data-class="5" data-position="5">
+                <div class="slide-overlay"></div>
+                <div class="poster-box" style="background:url(https://yudiz.com/codepen/stack-slider/poster-5.jpg) center center / cover no-repeat;">
+                </div>
+              </div>
+            </div>
+            <span id="slider-next">
+              <img src="https://yudiz.com/codepen/stack-slider/arrow.png" alt="arrow-image">
+            </span>
+          </div>
+        </div>
+      </section>
+      <div class="button-container">
+        <a href="../../index.php" class="btn btn-primary" role="button">
+          <span>Regresar</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

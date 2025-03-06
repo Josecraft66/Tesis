@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance General - Contabilidad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f0f0;
+        }
+
+        .excel-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .excel-header {
+            background-color: #217346;
+            padding: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-button {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 20px;
+        }
+
+        .nav-button:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .spreadsheet {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .spreadsheet th, .spreadsheet td {
+            border: 1px solid #e1e1e1;
+            padding: 8px;
+        }
+
+        .spreadsheet th {
+            background-color: #f3f2f1;
+        }
+
+        .section-header {
+            background-color: #217346;
+            color: white;
+            font-weight: bold;
+        }
+
+        .subsection {
+            background-color: #e8f5e9;
+            font-weight: bold;
+        }
+
+        .total-row {
+            background-color: #f3f2f1;
+            font-weight: bold;
+        }
+
+        .currency {
+            text-align: right;
+        }
+
+        .tabs {
+            display: flex;
+            background-color: #217346;
+            padding: 5px 5px 0 5px;
+        }
+
+        .tab {
+            padding: 8px 20px;
+            background-color: #1a5c38;
+            color: white;
+            border: none;
+            margin-right: 2px;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background-color: white;
+            color: #217346;
+        }
+
+        [contenteditable="true"]:focus {
+            outline: 2px solid #217346;
+            outline-offset: -2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="excel-container">
+        <div class="excel-header">
+            <div class="navigation-buttons">
+                <button class="nav-button" onclick="window.location.href='index.html'">←</button>
+                <button class="nav-button" onclick="window.location.href='pagina3.html'">→</button>
+                <button class="nav-button" onclick="window.location.href='../../index.php'">🏠</button>
+            </div>
+            <h1 style="color: white;">Balance General</h1>
+            <div style="width: 100px;"></div>
+        </div>
+
+        <div style="overflow-x: auto;">
+            <table class="spreadsheet">
+                <tr class="section-header">
+                    <td colspan="2">ACTIVOS</td>
+                </tr>
+                <tr class="subsection">
+                    <td>Activos Corrientes</td>
+                    <td class="currency">Monto</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Efectivo y equivalentes</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Cuentas por cobrar</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Inventario</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total Activos Corrientes</td>
+                    <td class="currency" id="total-activos-corrientes">0.00</td>
+                </tr>
+
+                <tr class="subsection">
+                    <td>Activos No Corrientes</td>
+                    <td class="currency">Monto</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Propiedad, planta y equipo</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Intangibles</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total Activos No Corrientes</td>
+                    <td class="currency" id="total-activos-no-corrientes">0.00</td>
+                </tr>
+
+                <tr class="section-header">
+                    <td>TOTAL ACTIVOS</td>
+                    <td class="currency" id="total-activos">0.00</td>
+                </tr>
+
+                <tr class="section-header">
+                    <td colspan="2">PASIVOS Y PATRIMONIO</td>
+                </tr>
+                <tr class="subsection">
+                    <td>Pasivos Corrientes</td>
+                    <td class="currency">Monto</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Cuentas por pagar</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Impuestos por pagar</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total Pasivos Corrientes</td>
+                    <td class="currency" id="total-pasivos-corrientes">0.00</td>
+                </tr>
+
+                <tr class="subsection">
+                    <td>Patrimonio</td>
+                    <td class="currency">Monto</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Capital social</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Utilidades retenidas</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total Patrimonio</td>
+                    <td class="currency" id="total-patrimonio">0.00</td>
+                </tr>
+
+                <tr class="section-header">
+                    <td>TOTAL PASIVOS Y PATRIMONIO</td>
+                    <td class="currency" id="total-pasivos-patrimonio">0.00</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="tabs">
+            <button class="tab" onclick="window.location.href='index.html'">Libro Diario</button>
+            <button class="tab active">Balance General</button>
+            <button class="tab" onclick="window.location.href='pagina3.html'">Estado de Resultados</button>
+            <button class="tab" onclick="window.location.href='pagina4.html'">Mayor General</button>
+        </div>
+    </div>
+
+    <script>
+        // Función para actualizar totales
+        function updateTotals() {
+            // Activos Corrientes
+            let activosCorrientes = 0;
+            document.querySelectorAll('tr').forEach(row => {
+                if (row.cells[0]?.textContent.includes('efectivo') || 
+                    row.cells[0]?.textContent.includes('cuentas por cobrar') || 
+                    row.cells[0]?.textContent.includes('inventario')) {
+                    activosCorrientes += parseFloat(row.cells[1]?.textContent || 0);
+                }
+            });
+            document.getElementById('total-activos-corrientes').textContent = activosCorrientes.toFixed(2);
+
+            // Activos No Corrientes
+            let activosNoCorrientes = 0;
+            document.querySelectorAll('tr').forEach(row => {
+                if (row.cells[0]?.textContent.includes('propiedad') || 
+                    row.cells[0]?.textContent.includes('intangibles')) {
+                    activosNoCorrientes += parseFloat(row.cells[1]?.textContent || 0);
+                }
+            });
+            document.getElementById('total-activos-no-corrientes').textContent = activosNoCorrientes.toFixed(2);
+
+            // Total Activos
+            const totalActivos = activosCorrientes + activosNoCorrientes;
+            document.getElementById('total-activos').textContent = totalActivos.toFixed(2);
+
+            // Pasivos Corrientes
+            let pasivosCorrientes = 0;
+            document.querySelectorAll('tr').forEach(row => {
+                if (row.cells[0]?.textContent.includes('cuentas por pagar') || 
+                    row.cells[0]?.textContent.includes('impuestos por pagar')) {
+                    pasivosCorrientes += parseFloat(row.cells[1]?.textContent || 0);
+                }
+            });
+            document.getElementById('total-pasivos-corrientes').textContent = pasivosCorrientes.toFixed(2);
+
+            // Patrimonio
+            let patrimonio = 0;
+            document.querySelectorAll('tr').forEach(row => {
+                if (row.cells[0]?.textContent.includes('capital social') || 
+                    row.cells[0]?.textContent.includes('utilidades retenidas')) {
+                    patrimonio += parseFloat(row.cells[1]?.textContent || 0);
+                }
+            });
+            document.getElementById('total-patrimonio').textContent = patrimonio.toFixed(2);
+
+            // Total Pasivos y Patrimonio
+            const totalPasivosPatrimonio = pasivosCorrientes + patrimonio;
+            document.getElementById('total-pasivos-patrimonio').textContent = totalPasivosPatrimonio.toFixed(2);
+        }
+
+        // Actualizar totales cuando se modifica cualquier celda
+        document.addEventListener('input', function(e) {
+            if (e.target.tagName === 'TD') {
+                // Formatear número si es una celda de moneda
+                if (e.target.classList.contains('currency')) {
+                    const value = parseFloat(e.target.textContent || 0);
+                    if (!isNaN(value)) {
+                        e.target.textContent = value.toFixed(2);
+                    }
+                }
+                updateTotals();
+            }
+        });
+
+        // Inicializar totales
+        updateTotals();
+    </script>
+</body>
+</html>
+

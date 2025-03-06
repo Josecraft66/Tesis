@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libro Diario - Contabilidad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f0f0;
+        }
+
+        .excel-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .excel-header {
+            background-color: #217346;
+            padding: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-button {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 20px;
+        }
+
+        .nav-button:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .menu-bar {
+            background-color: #f3f2f1;
+            padding: 5px;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .menu-bar button {
+            padding: 5px 10px;
+            margin: 0 2px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .menu-bar button:hover {
+            background-color: #e1e1e1;
+        }
+
+        .formula-bar {
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .formula-bar input {
+            flex: 1;
+            padding: 4px;
+            margin: 0 5px;
+            border: 1px solid #ccc;
+        }
+
+        .spreadsheet {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .spreadsheet th, .spreadsheet td {
+            border: 1px solid #e1e1e1;
+            padding: 5px;
+            min-width: 100px;
+            height: 25px;
+        }
+
+        .spreadsheet th {
+            background-color: #f3f2f1;
+            font-weight: normal;
+        }
+
+        .spreadsheet td {
+            position: relative;
+        }
+
+        .spreadsheet td:focus {
+            outline: 2px solid #217346;
+            outline-offset: -2px;
+        }
+
+        .spreadsheet .row-header {
+            background-color: #f3f2f1;
+            text-align: center;
+            width: 40px;
+            min-width: 40px;
+        }
+
+        .spreadsheet .col-header {
+            text-align: center;
+        }
+
+        .cell-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            padding: 4px;
+            display: none;
+        }
+
+        .cell-input:focus {
+            display: block;
+            outline: 2px solid #217346;
+            outline-offset: -2px;
+        }
+
+        .tabs {
+            display: flex;
+            background-color: #217346;
+            padding: 5px 5px 0 5px;
+        }
+
+        .tab {
+            padding: 8px 20px;
+            background-color: #1a5c38;
+            color: white;
+            border: none;
+            margin-right: 2px;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background-color: white;
+            color: #217346;
+        }
+
+        .total-row td {
+            background-color: #f3f2f1;
+            font-weight: bold;
+        }
+
+        .currency {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="excel-container">
+        <div class="excel-header">
+            <div class="navigation-buttons">
+                <button class="nav-button" onclick="window.location.href='pagina2.html'">→</button>
+                <button class="nav-button" onclick="window.location.href='../../index.php'">🏠</button>
+            </div>
+            <h1 style="color: white;">Libro Diario</h1>
+            <div style="width: 100px;"></div>
+        </div>
+
+        <div class="menu-bar">
+            <button onclick="setBold()">N</button>
+            <button onclick="setItalic()">K</button>
+            <button onclick="setUnderline()">S</button>
+            <button onclick="setCurrency()">$</button>
+            <button onclick="setDate()">📅</button>
+        </div>
+
+        <div class="formula-bar">
+            <span>fx</span>
+            <input type="text" id="formula-input" placeholder="Ingrese una fórmula">
+        </div>
+
+        <div style="overflow-x: auto;">
+            <table class="spreadsheet" id="spreadsheet">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="col-header">A</th>
+                        <th class="col-header">B</th>
+                        <th class="col-header">C</th>
+                        <th class="col-header">D</th>
+                        <th class="col-header">E</th>
+                        <th class="col-header">F</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="row-header">1</td>
+                        <td>Fecha</td>
+                        <td>Descripción</td>
+                        <td>Referencia</td>
+                        <td>Debe</td>
+                        <td>Haber</td>
+                        <td>Balance</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active">Libro Diario</button>
+            <button class="tab" onclick="window.location.href='pagina2.html'">Balance General</button>
+            <button class="tab" onclick="window.location.href='pagina3.html'">Estado de Resultados</button>
+            <button class="tab" onclick="window.location.href='pagina4.html'">Mayor General</button>
+        </div>
+    </div>
+
+    <script>
+        // Crear filas iniciales
+        const tbody = document.querySelector('tbody');
+        for (let i = 2; i <= 20; i++) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="row-header">${i}</td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true" class="currency"></td>
+                <td contenteditable="true" class="currency"></td>
+                <td contenteditable="true" class="currency"></td>
+            `;
+            tbody.appendChild(tr);
+        }
+
+        // Agregar fila de totales
+        const totalRow = document.createElement('tr');
+        totalRow.className = 'total-row';
+        totalRow.innerHTML = `
+            <td class="row-header"></td>
+            <td colspan="3">TOTAL</td>
+            <td class="currency">0.00</td>
+            <td class="currency">0.00</td>
+            <td class="currency">0.00</td>
+        `;
+        tbody.appendChild(totalRow);
+
+        // Funciones de formato
+        function setBold() {
+            document.execCommand('bold', false, null);
+        }
+
+        function setItalic() {
+            document.execCommand('italic', false, null);
+        }
+
+        function setUnderline() {
+            document.execCommand('underline', false, null);
+        }
+
+        function setCurrency() {
+            const selection = window.getSelection();
+            const cell = selection.anchorNode.parentElement;
+            if (cell.tagName === 'TD') {
+                cell.classList.add('currency');
+                const value = cell.textContent;
+                if (!isNaN(value)) {
+                    cell.textContent = parseFloat(value).toFixed(2);
+                }
+            }
+        }
+
+        function setDate() {
+            const selection = window.getSelection();
+            const cell = selection.anchorNode.parentElement;
+            if (cell.tagName === 'TD') {
+                const date = new Date().toLocaleDateString();
+                cell.textContent = date;
+            }
+        }
+
+        // Actualizar totales
+        document.addEventListener('input', function(e) {
+            if (e.target.tagName === 'TD' && e.target.classList.contains('currency')) {
+                updateTotals();
+            }
+        });
+
+        function updateTotals() {
+            let totalDebe = 0;
+            let totalHaber = 0;
+
+            document.querySelectorAll('tr:not(.total-row)').forEach(row => {
+                const debe = parseFloat(row.cells[4]?.textContent || 0);
+                const haber = parseFloat(row.cells[5]?.textContent || 0);
+                
+                if (!isNaN(debe)) totalDebe += debe;
+                if (!isNaN(haber)) totalHaber += haber;
+            });
+
+            const totalRow = document.querySelector('.total-row');
+            totalRow.cells[4].textContent = totalDebe.toFixed(2);
+            totalRow.cells[5].textContent = totalHaber.toFixed(2);
+            totalRow.cells[6].textContent = (totalDebe - totalHaber).toFixed(2);
+        }
+    </script>
+</body>
+</html>

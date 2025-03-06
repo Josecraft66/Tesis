@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado de Resultados - Contabilidad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f0f0;
+        }
+
+        .excel-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .excel-header {
+            background-color: #217346;
+            padding: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-button {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 20px;
+        }
+
+        .nav-button:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .spreadsheet {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .spreadsheet th, .spreadsheet td {
+            border: 1px solid #e1e1e1;
+            padding: 8px;
+        }
+
+        .section-header {
+            background-color: #217346;
+            color: white;
+            font-weight: bold;
+        }
+
+        .subsection {
+            background-color: #e8f5e9;
+            font-weight: bold;
+        }
+
+        .total-row {
+            background-color: #f3f2f1;
+            font-weight: bold;
+        }
+
+        .currency {
+            text-align: right;
+        }
+
+        .tabs {
+            display: flex;
+            background-color: #217346;
+            padding: 5px 5px 0 5px;
+        }
+
+        .tab {
+            padding: 8px 20px;
+            background-color: #1a5c38;
+            color: white;
+            border: none;
+            margin-right: 2px;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background-color: white;
+            color: #217346;
+        }
+
+        [contenteditable="true"]:focus {
+            outline: 2px solid #217346;
+            outline-offset: -2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="excel-container">
+        <div class="excel-header">
+            <div class="navigation-buttons">
+                <button class="nav-button" onclick="window.location.href='pagina2.html'">←</button>
+                <button class="nav-button" onclick="window.location.href='pagina4.html'">→</button>
+                <button class="nav-button" onclick="window.location.href='../../index.php'">🏠</button>
+            </div>
+            <h1 style="color: white;">Estado de Resultados</h1>
+            <div style="width: 100px;"></div>
+        </div>
+
+        <div style="overflow-x: auto;">
+            <table class="spreadsheet">
+                <tr class="section-header">
+                    <td colspan="2">INGRESOS</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Ventas</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Otros ingresos</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total Ingresos</td>
+                    <td class="currency" id="total-ingresos">0.00</td>
+                </tr>
+
+                <tr class="section-header">
+                    <td colspan="2">COSTOS</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Costo de ventas</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr class="total-row">
+                    <td>Utilidad Bruta</td>
+                    <td class="currency" id="utilidad-bruta">0.00</td>
+                </tr>
+
+                <tr class="section-header">
+                    <td colspan="2">GASTOS OPERATIVOS</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Gastos administrativos</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Gastos de ventas</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Depreciación</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr class="total-row">
+                    <td>Total Gastos Operativos</td>
+                    <td class="currency" id="total-gastos">0.00</td>
+                </tr>
+
+                <tr class="total-row">
+                    <td>Utilidad Operativa</td>
+                    <td class="currency" id="utilidad-operativa">0.00</td>
+                </tr>
+
+                <tr class="section-header">
+                    <td colspan="2">OTROS INGRESOS Y GASTOS</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Ingresos financieros</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+                <tr>
+                    <td contenteditable="true">Gastos financieros</td>
+                    <td contenteditable="true" class="currency">0.00</td>
+                </tr>
+
+                <tr class="section-header">
+                    <td>UTILIDAD ANTES DE IMPUESTOS</td>
+                    <td class="currency" id="utilidad-antes-impuestos">0.00</td>
+                </tr>
+
+                <tr>
+                    <td contenteditable="true">Impuestos (30%)</td>
+                    <td class="currency" id="impuestos">0.00</td>
+                </tr>
+
+                <tr class="section-header">
+                    <td>UTILIDAD NETA</td>
+                    <td class="currency" id="utilidad-neta">0.00</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="tabs">
+            <button class="tab" onclick="window.location.href='index.html'">Libro Diario</button>
+            <button class="tab" onclick="window.location.href='pagina2.html'">Balance General</button>
+            <button class="tab active">Estado de Resultados</button>
+            <button class="tab" onclick="window.location.href='pagina4.html'">Mayor General</button>
+        </div>
+    </div>
+
+    <script>
+        function updateTotals() {
+            // Calcular total de ingresos
+            let ingresos = 0;
+            document.querySelectorAll('tr').forEach(row => {
+                if (row.cells[0]?.textContent.includes('Ventas') || 
+                    row.cells[0]?.textContent.includes('Otros ingresos')) {
+                    ingresos += parseFloat(row.cells[1]?.textContent || 0);
+                }
+            });
+            document.getElementById('total-ingresos').textContent = ingresos.toFixed(2);
+
+            // Calcular costo de ventas y utilidad bruta
+            const costoVentas = parseFloat(document.querySelector('tr:has(td:first-child:contains("Costo de ventas")) td:last-child').textContent || 0);
+            const utilidadBruta = ingresos - costoVentas;
+            document.getElementById('utilidad-bruta').textContent = utilidadBruta.toFixed(2);
+
+            // Calcular total gastos operativos
+            let gastosOperativos = 0;
+            document.querySelectorAll('tr').forEach(row => {
+                if (row.cells[0]?.textContent.includes('Gastos administrativos') || 
+                    row.cells[0]?.textContent.includes('Gastos de ventas') ||
+                    row.cells[0]  || 
+                    row.cells[0]?.textContent.includes('Gastos de ventas') ||
+                    row.cells[0]?.textContent.includes('Depreciación')) {
+                    gastosOperativos += parseFloat(row.cells[1]?.textContent || 0);
+                }
+            });
+            document.getElementById('total-gastos').textContent = gastosOperativos.toFixed(2);
+
+            // Calcular utilidad operativa
+            const utilidadOperativa = utilidadBruta - gastosOperativos;
+            document.getElementById('utilidad-operativa').textContent = utilidadOperativa.toFixed(2);
+
+            // Calcular otros ingresos y gastos
+            const ingresosFinancieros = parseFloat(document.querySelector('tr:has(td:first-child:contains("Ingresos financieros")) td:last-child').textContent || 0);
+            const gastosFinancieros = parseFloat(document.querySelector('tr:has(td:first-child:contains("Gastos financieros")) td:last-child').textContent || 0);
+
+            // Calcular utilidad antes de impuestos
+            const utilidadAntesImpuestos = utilidadOperativa + ingresosFinancieros - gastosFinancieros;
+            document.getElementById('utilidad-antes-impuestos').textContent = utilidadAntesImpuestos.toFixed(2);
+
+            // Calcular impuestos (30%)
+            const impuestos = utilidadAntesImpuestos * 0.3;
+            document.getElementById('impuestos').textContent = impuestos.toFixed(2);
+
+            // Calcular utilidad neta
+            const utilidadNeta = utilidadAntesImpuestos - impuestos;
+            document.getElementById('utilidad-neta').textContent = utilidadNeta.toFixed(2);
+        }
+
+        // Actualizar totales cuando se modifica cualquier celda
+        document.addEventListener('input', function(e) {
+            if (e.target.tagName === 'TD') {
+                // Formatear número si es una celda de moneda
+                if (e.target.classList.contains('currency')) {
+                    const value = parseFloat(e.target.textContent || 0);
+                    if (!isNaN(value)) {
+                        e.target.textContent = value.toFixed(2);
+                    }
+                }
+                updateTotals();
+            }
+        });
+
+        // Inicializar totales
+        updateTotals();
+    </script>
+</body>
+</html>
+

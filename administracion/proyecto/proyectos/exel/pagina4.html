@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayor General - Contabilidad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f0f0;
+        }
+
+        .excel-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .excel-header {
+            background-color: #217346;
+            padding: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-button {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 20px;
+        }
+
+        .nav-button:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .account-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .account-card {
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+        }
+
+        .account-header {
+            background-color: #217346;
+            color: white;
+            padding: 8px;
+            font-weight: bold;
+        }
+
+        .account-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .account-table th, .account-table td {
+            border: 1px solid #e1e1e1;
+            padding: 6px;
+        }
+
+        .account-table th {
+            background-color: #f3f2f1;
+        }
+
+        .currency {
+            text-align: right;
+        }
+
+        .total-row {
+            background-color: #f3f2f1;
+            font-weight: bold;
+        }
+
+        .tabs {
+            display: flex;
+            background-color: #217346;
+            padding: 5px 5px 0 5px;
+        }
+
+        .tab {
+            padding: 8px 20px;
+            background-color: #1a5c38;
+            color: white;
+            border: none;
+            margin-right: 2px;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background-color: white;
+            color: #217346;
+        }
+
+        [contenteditable="true"]:focus {
+            outline: 2px solid #217346;
+            outline-offset: -2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="excel-container">
+        <div class="excel-header">
+            <div class="navigation-buttons">
+                <button class="nav-button" onclick="window.location.href='pagina3.html'">←</button>
+                <button class="nav-button" onclick="window.location.href='../../index.php'">🏠</button>
+            </div>
+            <h1 style="color: white;">Mayor General</h1>
+            <div style="width: 100px;"></div>
+        </div>
+
+        <div class="account-grid">
+            <!-- Cuenta: Efectivo -->
+            <div class="account-card">
+                <div class="account-header">Efectivo</div>
+                <table class="account-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Debe</th>
+                            <th>Haber</th>
+                            <th>Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true" class="currency">0.00</td>
+                            <td contenteditable="true" class="currency">0.00</td>
+                            <td class="currency">0.00</td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true" class="currency">0.00</td>
+                            <td contenteditable="true" class="currency">0.00</td>
+                            <td class="currency">0.00</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>Total</td>
+                            <td class="currency">0.00</td>
+                            <td class="currency">0.00</td>
+                            <td class="currency">0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Cuenta: Cuentas por Cobrar -->
+            <div class="account-card">
+                <div class="account-header">Cuentas por Cobrar</div>
+                <table class="account-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Debe</th>
+                            <th>Haber</th>
+                            <th>Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true" class="currency">0.00</td>
+                            <td contenteditable="true" class="currency">0.00</td>
+                            <td class="currency">0.00</td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true" class="currency">0.00</td>
+                            <td contenteditable="true" class="currency">0.00</td>
+                            <td class="currency">0.00</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>Total</td>
+                            <td class="currency">0.00</td>
+                            <td class="currency">0.00</td>
+                            <td class="currency">0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Cuenta: Inventario -->
+            <div class="account-card">
+                <div class="account-header">Inventario</div>
+                <table class="account-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Debe</th>
+                            <th>Haber</th>
+                            <th>Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true" class="currency">0.00</td>
+                            <td contenteditable="true" class="currency">0.00</td>
+                            <td class="currency">0.00</td>
+                        </tr>
+                        <tr>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true" class="currency">0.00</td>
+                            <td contenteditable="true" class="currency">0.00</td>
+                            <td class="currency">0.00</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>Total</td>
+                            <td class="currency">0.00</td>
+                            <td class="currency">0.00</td>
+                            <td class="currency">0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab" onclick="window.location.href='index.html'">Libro Diario</button>
+            <button class="tab" onclick="window.location.href='pagina2.html'">Balance General</button>
+            <button class="tab" onclick="window.location.href='pagina3.html'">Estado de Resultados</button>
+            <button class="tab active">Mayor General</button>
+        </div>
+    </div>
+
+    <script>
+        function updateAccountBalance(accountCard) {
+            let totalDebe = 0;
+            let totalHaber = 0;
+            let saldoAcumulado = 0;
+
+            const rows = accountCard.querySelectorAll('tbody tr:not(.total-row)');
+            rows.forEach(row => {
+                const debe = parseFloat(row.cells[1].textContent || 0);
+                const haber = parseFloat(row.cells[2].textContent || 0);
+
+                if (!isNaN(debe)) totalDebe += debe;
+                if (!isNaN(haber)) totalHaber += haber;
+
+                saldoAcumulado = totalDebe - totalHaber;
+                row.cells[3].textContent = saldoAcumulado.toFixed(2);
+            });
+
+            const totalRow = accountCard.querySelector('.total-row');
+            totalRow.cells[1].textContent = totalDebe.toFixed(2);
+            totalRow.cells[2].textContent = totalHaber.toFixed(2);
+            totalRow.cells[3].textContent = saldoAcumulado.toFixed(2);
+        }
+
+        // Actualizar saldos cuando se modifica cualquier celda
+        document.addEventListener('input', function(e) {
+            if (e.target.tagName === 'TD') {
+                const accountCard = e.target.closest('.account-card');
+                if (accountCard) {
+                    // Formatear número si es una celda de moneda
+                    if (e.target.classList.contains('currency')) {
+                        const value = parseFloat(e.target.textContent || 0);
+                        if (!isNaN(value)) {
+                            e.target.textContent = value.toFixed(2);
+                        }
+                    }
+                    updateAccountBalance(accountCard);
+                }
+            }
+        });
+
+        // Inicializar saldos
+        document.querySelectorAll('.account-card').forEach(updateAccountBalance);
+    </script>
+</body>
+</html>
+
