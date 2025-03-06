@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Switches y Botones 3D</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #222;
+            color: #f5f5f5;
+            font-family: 'Roboto', sans-serif;
+            padding: 2rem;
+        }
+
+        .table-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        th {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            color: #fff;
+            padding: 15px;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #39FF14;
+        }
+
+        td {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-3d {
+            position: relative;
+            padding: 10px 20px;
+            border: none;
+            background: linear-gradient(145deg, #2e2e2e, #1a1a1a);
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            box-shadow: 0 4px 0 #000;
+            transition: all 0.2s;
+            cursor: pointer;
+            width: 100%;
+            max-width: 150px;
+        }
+
+        .btn-3d:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #000;
+            background: linear-gradient(145deg, #333, #222);
+        }
+
+        .btn-3d:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #000;
+        }
+
+        .btn-3d span {
+            background: linear-gradient(90deg, #39FF14, #00ff00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        /* Switch styles */
+        .switch {
+            --switch-width: 80px;
+            --switch-height: calc(var(--switch-width) / 2);
+            --switch-padding: 2px;
+            --switch-border-radius: 999px;
+            --switch-clr-border: rgba(255, 255, 255, 0.25);
+            --switch-clr-bg: rgb(41, 37, 36);
+            --switch-clr-bg-on: #39FF14;
+            --switch-duration: 300ms;
+            --toggle-size: calc(var(--switch-height) - var(--switch-padding) * 2);
+            --toggle-bg: #404040;
+            --toggle-bg-on: #FFFFFF;
+            --led-size: 8px;
+            --led-color-off: rgba(255, 255, 255, 0.15);
+            --led-color-on: rgb(56, 189, 248);
+            --led-color-loading: rgb(234, 179, 8);
+            --led-duration: 3s;
+            --led-delay: 500ms;
+            --led-blur: 12px;
+            --led-blur-distance: -0.5rem;
+            
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: fit-content;
+            padding: 10px;
+        }
+
+        .switch label {
+            position: relative;
+            cursor: pointer;
+            width: var(--switch-width);
+            height: var(--switch-height);
+            border-radius: var(--switch-border-radius);
+            border: 1px solid var(--switch-clr-border);
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            transition: all var(--switch-duration);
+            filter: brightness(0.8);
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3),
+                       0 2px 4px rgba(255,255,255,0.1);
+        }
+
+        .switch input[type="checkbox"] {
+            display: none;
+        }
+
+        .switch .toggle {
+            position: absolute;
+            top: var(--switch-padding);
+            left: var(--switch-padding);
+            width: var(--toggle-size);
+            height: var(--toggle-size);
+            background: linear-gradient(145deg, #404040, #303030);
+            border-radius: 50%;
+            transition: all var(--switch-duration);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .switch input[type="checkbox"]:checked + label {
+            background: linear-gradient(145deg, #39FF14, #32CD32);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.5),
+                       inset 0 2px 4px rgba(0,0,0,0.1);
+            filter: brightness(1);
+        }
+
+        .switch input[type="checkbox"]:checked + label .toggle {
+            transform: translateX(calc(var(--switch-width) - var(--toggle-size) - var(--switch-padding) * 2));
+            background: linear-gradient(145deg, #fff, #f0f0f0);
+        }
+
+        /* Resto de los estilos del switch permanecen igual */
+        .icon-wrapper {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon {
+            width: 100%;
+            height: 100%;
+            transition: all var(--switch-duration);
+            color: rgba(255, 255, 255, 0.5);
+            filter: brightness(0.7);
+            stroke-width: 1.5;
+        }
+
+        .switch input[type="checkbox"]:checked ~ .icon-wrapper .icon {
+            color: var(--switch-clr-bg-on);
+            filter: brightness(1);
+        }
+
+        .icon-line {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom right, 
+                transparent calc(50% - 1px), 
+                #ff0000 calc(50% - 1px), 
+                #ff0000 calc(50% + 1px), 
+                transparent calc(50% + 1px)
+            );
+            opacity: 1;
+            transition: opacity var(--switch-duration);
+        }
+
+        .switch input[type="checkbox"]:checked ~ .icon-wrapper .icon-line {
+            opacity: 0;
+        }
+
+        .programacion-text {
+            font-size: 16px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.5);
+            transition: all var(--switch-duration);
+            filter: brightness(0.7);
+            text-shadow: none;
+            min-width: 120px;
+        }
+
+        .switch input[type="checkbox"]:checked ~ .programacion-text {
+            animation: textGradientAndBlink 2s infinite;
+            filter: brightness(1);
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+        }
+
+        @keyframes textGradientAndBlink {
+            0% { 
+                color: #39FF14; 
+                opacity: 1;
+            }
+            25% { 
+                color: #FFFF00; 
+                opacity: 0.7;
+            }
+            50% { 
+                color: #39FF14; 
+                opacity: 1;
+            }
+            75% { 
+                color: #FFFF00; 
+                opacity: 0.7;
+            }
+            100% { 
+                color: #39FF14; 
+                opacity: 1;
+            }
+        }
+        body {
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+        h1 {
+            font-family: 'Staatliches', sans-serif;
+            color: #0dc900;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(13, 201, 0, 0.8);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Registro de Alumnos y Maestros</h1>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>Especialidad</th>
+                <th>Alumno</th>
+                <th>Maestros</th>
+                <th>Proyectos</th>
+            </tr>
+            <!-- Programación -->
+            <tr>
+                <td>
+                    <div class="switch">
+                        <input type="checkbox" id="switch-prog">
+                        <label for="switch-prog">
+                            <span class="toggle"></span>
+                        </label>
+                        <span class="programacion-text">Programación</span>
+                        <div class="icon-wrapper">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M8 3H7a2 2 0 00-2 2v5a2 2 0 01-2 2 2 2 0 012 2v5c0 1.1.9 2 2 2h1"/>
+                                <path d="M16 3h1a2 2 0 012 2v5a2 2 0 002 2 2 2 0 00-2 2v5a2 2 0 01-2 2h-1"/>
+                            </svg>
+                            <div class="icon-line"></div>
+                        </div>
+                    </div>
+                </td>
+                <td><button class="btn-3d" onclick="window.location.href='programacion/alumno/index.php';"><span>ALUMNOS</span></button></td>
+                <td><button class="btn-3d" onclick="window.location.href='programacion/maestros/index.php';"><span>MAESTROS</span></button></td>
+                <td><button class="btn-3d" onclick="window.location.href='programacion/proyecto/index.php';"><span>PROYECTOS</span></button></td>
+            </tr>
+            <!-- Laboratorista -->
+            <tr>
+                <td>
+                    <div class="switch">
+                        <input type="checkbox" id="switch-lab">
+                        <label for="switch-lab">
+                            <span class="toggle"></span>
+                        </label>
+                        <span class="programacion-text">Laboratorista</span>
+                        <div class="icon-wrapper">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M9 3v15m0 0v3M9 18h6m-6 0H3m6-15h6M9 3H3m12 0v3m0-3h6M3 3v3m18-3v3M3 21v-3m18 3v-3"/>
+                                <path d="M15 9h-3v6h3"/>
+                            </svg>
+                            <div class="icon-line"></div>
+                        </div>
+                    </div>
+                </td>
+                <td><button class="btn-3d" onclick="window.location.href='laboratorista/alumno/index.php';"><span>ALUMNOS</span></button></td>
+                <td><button class="btn-3d" onclick="window.location.href='laboratorista/maestros/index.php';"><span>MAESTROS</span></button></td>
+                <td><button class="btn-3d" onclick="window.location.href='laboratorista/proyecto/index.php';"><span>PROYECTOS</span></button></td>
+            </tr>
+            <!-- Administración -->
+            <tr>
+                <td>
+                    <div class="switch">
+                        <input type="checkbox" id="switch-adm">
+                        <label for="switch-adm">
+                            <span class="toggle"></span>
+                        </label>
+                        <span class="programacion-text">Administración</span>
+                        <div class="icon-wrapper">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/>
+                                <path d="M15 2H9a1 1 0 00-1 1v2a1 1 0 001 1h6a1 1 0 001-1V3a1 1 0 00-1-1z"/>
+                                <path d="M12 11h.01M8 11h.01M16 11h.01M12 15h.01M8 15h.01M16 15h.01"/>
+                            </svg>
+                            <div class="icon-line"></div>
+                        </div>
+                    </div>
+                </td>
+                <td><button class="btn-3d" onclick="window.location.href='administracion/alumno/index.php';"><span>ALUMNOS</span></button></td>
+                <td><button class="btn-3d" onclick="window.location.href='administracion/maestros/index.php';"><span>MAESTROS</span></button></td>
+                <td><button class="btn-3d" onclick="window.location.href='administracion/proyecto/index.php';"><span>PROYECTOS</span></button></td>
+            </tr>
+            <!-- Ofimática -->
+            <tr>
+                <td>
+                    <div class="switch">
+                        <input type="checkbox" id="switch-ofi">
+                        <label for="switch-ofi">
+                            <span class="toggle"></span>
+                        </label>
+                        <span class="programacion-text">Ofimática</span>
+                        <div class="icon-wrapper">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <path d="M22 7l-10 7L2 7"/>
+                            </svg>
+                            <div class="icon-line"></div>
+                        </div>
+                    </div>
+                </td>
+                <td><button class="btn-3d" onclick="window.location.href='ofimatica/alumno/index.php';"><span>ALUMNOS</span></button></td>
+                <td><button class="btn-3d" onclick="window.location.href='ofimatica/maestros/index.php';"><span>MAESTROS</span></button></td>
+                <td><button class="btn-3d" onclick="window.location.href='ofimatica/proyecto/index.php';"><span>PROYECTOS</span></button></td>
+            </tr>
+            <!-- Mecatrónica -->
+            <tr>
+                <td>
+                    <div class="switch">
+                        <input type="checkbox" id="switch-mec">
+                        <label for="switch-mec">
+                            <span class="toggle"></span>
+                        </label>
+                        <span class="programacion-text">Mecatrónica</span>
+                        <div class="icon-wrapper">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M14 7h-4v10h4"/>
+                                <path d="M5 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H7a2 2 0 01-2-2V8z"/>
+                                <circle cx="8.5" cy="13.5" r="1.5"/>
+                                <circle cx="15.5" cy="13.5" r="1.5"/>
+                            </svg>
+                            <div class="icon-line"></div>
+                        </div>
+                    </div>
+                </td>
+                <td><button class="btn-3d" onclick="window.location.href='mecatronica/alumno/index.php';"><span>ALUMNOS</span></button></td>
+                <td><button class="btn-3d" onclick="window.location.href='mecatronica/maestros/index.php';"><span>MAESTROS</span></button></td>
+                <td><button class="btn-3d" onclick="window.location.href='mecatronica/proyecto/index.php';"><span>PROYECTOS</span></button></td>
+            </tr>
+            <!-- Soporte -->
+            <tr>
+                <td>
+                    <div class="switch">
+                        <input type="checkbox" id="switch-sop">
+                        <label for="switch-sop">
+                            <span class="toggle"></span>
+                        </label>
+                        <span class="programacion-text">Soporte</span>
+                        <div class="icon-wrapper">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/>
+                            </svg>
+                            <div class="icon-line"></div>
+                        </div>
+                    </div>
+                </td>
+                <td><button class="btn-3d" onclick="window.location.href='soporte/alumno/index.php';"><span>ALUMNOS</span></button></td>
+                <td><button class="btn-3d" onclick="window.location.href='soporte/maestros/index.php';"><span>MAESTROS</span></button></td>
+                <td><button class="btn-3d" onclick="window.location.href='soporte/proyecto/index.php';"><span>PROYECTOS</span></button></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        const switches = document.querySelectorAll('.switch input[type="checkbox"]');
+        let lastActivated = null;
+
+        switches.forEach(switchEl => {
+            switchEl.addEventListener('change', function() {
+                if (lastActivated && lastActivated !== this) {
+                    lastActivated.parentElement.parentElement.querySelector('.programacion-text').style.color = '';
+                    lastActivated.parentElement.parentElement.querySelector('.programacion-text').style.animation = '';
+                }
+
+                if (this.checked) {
+                    lastActivated = this;
+                    const text = this.parentElement.parentElement.querySelector('.programacion-text');
+                    text.style.color = '#3B82F6';
+                    text.style.animation = 'none';
+                    
+                    // Añadir efecto de "activación" a los botones de la misma fila
+                    const row = this.closest('tr');
+                    const buttons = row.querySelectorAll('.btn-3d');
+                    buttons.forEach(button => {
+                        button.style.transform = 'translateY(-2px)';
+                        button.style.boxShadow = '0 6px 0 #000';
+                    });
+                } else {
+                    // Restaurar botones cuando se desactiva
+                    const row = this.closest('tr');
+                    const buttons = row.querySelectorAll('.btn-3d');
+                    buttons.forEach(button => {
+                        button.style.transform = '';
+                        button.style.boxShadow = '';
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
